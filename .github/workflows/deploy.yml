@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     name: 自动部署到Cloudflare
     steps:
-      - uses: actions/checkout@v4
+      - name: 拉取代码
+        uses: actions/checkout@v4
 
       - name: 部署到Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
