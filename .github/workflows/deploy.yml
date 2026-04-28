@@ -1,5 +1,4 @@
 name: 自动部署Cloud Code
-
 on:
   push:
     branches: [ main ]
@@ -9,11 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     name: 自动部署到Cloudflare
     steps:
-      - name: 拉取代码
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
+      - name: 安装Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 安装依赖
+        run: npm ci
       - name: 部署到Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
